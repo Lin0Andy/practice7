@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Weather</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/news" class="nav-link">News</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/third" class="nav-link">Air Quality</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link" style="display: <%= user_status ? 'block' : 'none' %>">Admin Page</a>
+                </li>
+                <li>
+                    <form action="/logout" method="post" class="form-inline">
+                        <button type="submit" class="btn btn-primary">Log Out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <form action="/third" method="post" class="pt-4">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" class="form-control" name="city" placeholder="City name" required>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <button type="submit" class="btn btn-primary">Display information</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container mt-5">
+        <p class="text-center mb-4">Air Quality Index (AQI): The Air Quality Index (AQI) is a numerical scale used to communicate the quality of air in a specific location. It provides a standardized way to convey how clean or polluted the air currently is and what associated health effects might be of concern for the general population. AQI values typically range from 0 to 500, with higher values indicating poorer air quality and a higher potential for adverse health effects.</p>
+
+        <h2 class="text-center mb-4">Air Quality</h2>
+
+        <h4 class="text-center mb-4">Overall AQI: <%= overall_aqi %></h4>
+        <h4 class="text-center mb-4">In overall: <%= aqiLevel %></h4>
+
+        <% pollutants.forEach(pollutant => { %>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><%= pollutant.name %></h5>
+                    <p class="card-text">Chemical formula: <%= pollutant.name %></p>
+                    <p class="card-text">Concentration: <%= pollutant.concentration %></p>
+                    <p class="card-text">AQI: <%= pollutant.aqi %></p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+
+    <footer class="footer fixed-bottom bg-dark">
+        <div class="container">
+            <p class="text-light">Made by: Sagandykova Alina, SE-2206</p>
+            <form action="/download" method="post" class="form-inline">
+                <button type="submit" class="btn btn-primary">Download latest history</button>
+            </form>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

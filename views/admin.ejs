@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Weather</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/news" class="nav-link">News</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/third" class="nav-link">Air Quality</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/admin" class="nav-link">Admin Page</a>
+                </li>
+                <li>
+                    <form action="/logout" method="post" class="form-inline">
+                        <button type="submit" class="btn btn-primary">Log Out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Admin Dashboard</h1>
+
+        <h2>Users</h2>
+        <ul class="list-group">
+            <% users.forEach(user => { %>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Username:</strong> <%= user.username %>
+                        </div>
+                        <div class="col">
+                            <form action="/admin/delete" method="post">
+                                <input type="hidden" name="username" value="<%= user.username %>">
+                                <button type="submit" class="btn btn-danger float-right">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                    <form action="/admin/edit" method="post">
+                        <input type="hidden" name="username" value="<%= user.username %>">
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="text" class="form-control" id="newPassword" name="newPassword" placeholder="<%= user.password%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="newStatus">New Status</label>
+                            <input type="text" class="form-control" id="newStatus" name="newStatus" placeholder="<%= user.admin_status%>">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Edit User</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+
+        <h2 class="mt-5">Add New User</h2>
+        <form action="/admin/add" method="post">
+            <div class="form-group">
+                <label for="newUsername">Username</label>
+                <input type="text" class="form-control" id="newUsername" name="newUsername" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">Password</label>
+                <input type="text" class="form-control" id="newPassword" name="newPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="newStatus">Status</label>
+                <input type="text" class="form-control" id="newStatus" name="newStatus" placeholder="Status">
+            </div>
+            <button type="submit" class="btn btn-success">Add User</button>
+        </form>
+    </div>
+
+    <footer class="footer fixed-bottom bg-dark">
+        <div class="container">
+            <p class="text-light">Made by: Sagandykova Alina, SE-2206</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
