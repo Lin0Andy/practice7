@@ -7,13 +7,13 @@ Welcome to the Weather and Environmental Monitoring Web Application! This applic
 To use the application, follow these steps:
 
 1. **Clone the repository to your local machine:**
-git clone <repository_url>
+<p>git clone <repository_url></p>
 
 2. **Install dependencies using npm:**
-npm install
+<p>npm install</p>
 
 3. **Create a `.env` file in the root directory and provide the necessary environment variables:**
-GOOGLE_MAPS_API_KEY=
+<p>GOOGLE_MAPS_API_KEY=
 GEOCODE_KEY=
 NEWS_API_KEY=
 WEATHER_API=
@@ -21,10 +21,10 @@ THIRD_API_KEY=
 MONGODB_API=
 URL_ENDPOINT=
 MONGODB_CON_STR=
-SESSION_SECRET=""
+SESSION_SECRET=""</p>
 
 4. **Run the application:**
-npm start
+<p>npm start</p>
 
 5. **Access the application in your browser at [http://localhost:3000](http://localhost:3000).**
 
