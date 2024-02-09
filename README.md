@@ -13,15 +13,15 @@ To use the application, follow these steps:
 <p>npm install</p>
 
 3. **Create a `.env` file in the root directory and provide the necessary environment variables:**
-<p>GOOGLE_MAPS_API_KEY=
-GEOCODE_KEY=
-NEWS_API_KEY=
-WEATHER_API=
-THIRD_API_KEY=
-MONGODB_API=
-URL_ENDPOINT=
-MONGODB_CON_STR=
-SESSION_SECRET=""</p>
+<p>GOOGLE_MAPS_API_KEY=</p>
+<p>GEOCODE_KEY=</p>
+<p>NEWS_API_KEY=</p>
+<p>WEATHER_API=</p>
+<p>THIRD_API_KEY=</p>
+<p>MONGODB_API=</p>
+<p>URL_ENDPOINT=</p>
+<p>MONGODB_CON_STR=</p>
+<p>SESSION_SECRET=""</p>
 
 4. **Run the application:**
 <p>npm start</p>
