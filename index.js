@@ -1,26 +1,26 @@
-const path = require("path");
-const express = require(path.join(__dirname,"node_modules/express"));
+const express = require("express");
 const https = require("https");
-const bodyParser = require(path.join(__dirname,'node_modules/body-parser'));
-const dotenv = require(path.join(__dirname,'node_modules/dotenv'));
-const ejs = require(path.join(__dirname,'node_modules/ejs'));
-const session = require(path.join(__dirname,'node_modules/express-session'));
-const mongoose = require(path.join(__dirname,'node_modules/mongoose'))
-const {data} = require(path.join(__dirname,"node_modules/express-session/session/cookie"));
+const path = require("path");
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const ejs = require('ejs');
+const session = require('express-session');
+const mongoose = require('mongoose')
+const {data} = require("express-session/session/cookie");
 // const {request} = require("https");
-const request = require(path.join(__dirname,'node_modules/request'))
+const request = require('request')
 dotenv.config();
 
-const app = express();
+const index = express();
 const PORT = process.env.PORT || 3000;
 const mapToken = process.env.GEOCODE_KEY;
 const atlas_con_string = process.env.MONGODB_CON_STR;
 const sessionSecret = process.env.SESSION_SECRET;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('img'));
-app.set('view engine', 'ejs');
-app.use(session({
+index.use(bodyParser.urlencoded({ extended: true }));
+index.use(express.static('img'));
+index.set('view engine', 'ejs');
+index.use(session({
     secret: sessionSecret,
     resave: false,
     saveUninitialized: true
@@ -84,7 +84,7 @@ const newsSchema = new mongoose.Schema({
 const News = mongoose.model('News', newsSchema);
 
 
-app.get('/', (req, res) => {
+index.get('/', (req, res) => {
     try {
         if (!req.session.username) {
             res.redirect('/login');
@@ -116,7 +116,7 @@ app.get('/', (req, res) => {
 
 });
 
-app.get('/news', (req, res) => {
+index.get('/news', (req, res) => {
     if (!req.session.username) {
         res.redirect('/login');
     } else {
@@ -133,7 +133,7 @@ app.get('/news', (req, res) => {
     }
 });
 
-app.get('/third', (req, res) => {
+index.get('/third', (req, res) => {
     if (!req.session.username) {
         res.redirect('/login');
     } else {
@@ -151,7 +151,7 @@ app.get('/third', (req, res) => {
     }
 });
 
-app.get('/admin', async (req, res) => {
+index.get('/admin', async (req, res) => {
     try {
         const users = await User.find({ deletion_date: null, username: { $ne: req.session.username } }).exec();
         res.render('admin', { users });
@@ -161,12 +161,12 @@ app.get('/admin', async (req, res) => {
     }
 });
 
-app.get('/login', (req, res) => {
+index.get('/login', (req, res) => {
     res.render('login');
 });
 
 
-app.post('/admin/delete', async (req, res) => {
+index.post('/admin/delete', async (req, res) => {
     const usernameToDelete = req.body.username;
 
     try {
@@ -178,7 +178,7 @@ app.post('/admin/delete', async (req, res) => {
     }
 });
 
-app.post('/admin/edit', async (req, res) => {
+index.post('/admin/edit', async (req, res) => {
     const { username, newUsername, newPassword , newStatus } = req.body;
 
     try {
@@ -191,7 +191,7 @@ app.post('/admin/edit', async (req, res) => {
     }
 });
 
-app.post('/admin/add', async (req, res) => {
+index.post('/admin/add', async (req, res) => {
     const { newUsername, newPassword } = req.body;
     const date = Date.now();
 
@@ -205,7 +205,7 @@ app.post('/admin/add', async (req, res) => {
     }
 });
 
-app.post('/third', function(req, res) {
+index.post('/third', function(req, res) {
     const city = req.body.city;
 
     request.get({
@@ -247,7 +247,7 @@ app.post('/third', function(req, res) {
     });
 });
 
-app.post('/news', function(req, res) {
+index.post('/news', function(req, res) {
     const sort = req.body.sorting;
     const date = req.body.sorting ? req.body.sorting : '2024-01-19';
 
@@ -304,7 +304,7 @@ app.post('/news', function(req, res) {
     });
 });
 
-app.post('/weather', (req, res) => {
+index.post('/weather', (req, res) => {
     const city = req.body.city;
     const zoom = req.body.zoom ? req.body.zoom : '9';
 
@@ -378,7 +378,7 @@ app.post('/weather', (req, res) => {
     });
 });
 
-app.post('/download', async (req, res) => {
+index.post('/download', async (req, res) => {
     try {
         const username = req.session.username;
         const newsRequests = await News.find({ user: username }).sort({ search_date: -1 }).limit(10);
@@ -459,7 +459,7 @@ function getAqiLevel(aqi) {
 }
 
 
-app.post('/login', async (req, res) => {
+index.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -477,7 +477,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.post('/logout', (req, res) => {
+index.post('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error('Error destroying session:', err);
@@ -488,7 +488,7 @@ app.post('/logout', (req, res) => {
     });
 });
 
-app.post('/signup', async (req, res) => {
+index.post('/signup', async (req, res) => {
     const { username, password } = req.body;
     const date = Date.now()
 
@@ -504,12 +504,12 @@ app.post('/signup', async (req, res) => {
 });
 
 
-app.use((req, res) => {
+index.use((req, res) => {
     res.status(404).send('404: Page not found');
 });
 
-app.listen(PORT, () => {
+index.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-module.exports = app
+module.exports = index
