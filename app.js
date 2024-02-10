@@ -1,6 +1,6 @@
+const path = require("path");
 const express = require(path.join(__dirname,"node_modules/express"));
 const https = require(path.join(__dirname, "node_modules/https"));
-const path = require(path.join(__dirname, "node_modules/path"));
 const bodyParser = require(path.join(__dirname,'node_modules/body-parser'));
 const dotenv = require(path.join(__dirname,'node_modules/dotenv'));
 const ejs = require(path.join(__dirname,'node_modules/ejs'));
