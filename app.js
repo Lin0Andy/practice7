@@ -85,29 +85,35 @@ const News = mongoose.model('News', newsSchema);
 
 
 app.get('/', (req, res) => {
-    if (!req.session.username) {
-        res.redirect('/login');
-    } else {
-        res.render('index', {
-            city: '',
-            temp: 0,
-            feels_like: 0,
-            temp_min: 0,
-            temp_max: 0,
-            condition: '',
-            icon_cond: '',
-            pressure: 0,
-            humidity: 0,
-            lon: 0,
-            lat: 0,
-            map: '',
-            zoom: 9,
-            wind_speed: 0,
-            country_code: '',
-            rain: '0 mm',
-            user_status: req.session.admin_status
-        });
+    try {
+        if (!req.session.username) {
+            res.redirect('/login');
+        } else {
+            res.render('index', {
+                city: '',
+                temp: 0,
+                feels_like: 0,
+                temp_min: 0,
+                temp_max: 0,
+                condition: '',
+                icon_cond: '',
+                pressure: 0,
+                humidity: 0,
+                lon: 0,
+                lat: 0,
+                map: '',
+                zoom: 9,
+                wind_speed: 0,
+                country_code: '',
+                rain: '0 mm',
+                user_status: req.session.admin_status
+            });
+        }
+    } catch (error) {
+        console.error('Error handling request:', error);
+        res.status(500).send('Internal server error');
     }
+
 });
 
 app.get('/news', (req, res) => {
