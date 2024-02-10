@@ -1,14 +1,14 @@
-const express = require("express");
-const https = require("https");
-const path = require("path");
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const ejs = require('ejs');
-const session = require('express-session');
-const mongoose = require('mongoose')
-const {data} = require("express-session/session/cookie");
+const express = require(path.join(__dirname,"node_modules/express"));
+const https = require(path.join(__dirname, "node_modules/https"));
+const path = require(path.join(__dirname, "node_modules/path"));
+const bodyParser = require(path.join(__dirname,'node_modules/body-parser'));
+const dotenv = require(path.join(__dirname,'node_modules/dotenv'));
+const ejs = require(path.join(__dirname,'node_modules/ejs'));
+const session = require(path.join(__dirname,'node_modules/express-session'));
+const mongoose = require(path.join(__dirname,'node_modules/mongoose'))
+const {data} = require(path.join(__dirname,"node_modules/express-session/session/cookie"));
 // const {request} = require("https");
-const request = require('request')
+const request = require(path.join(__dirname,'node_modules/request'))
 dotenv.config();
 
 const app = express();
