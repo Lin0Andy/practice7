@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vercel/node": "^3.0.18",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.1",
     "ejs": "^3.1.9",
@@ -22,6 +21,7 @@
     "mongodb": "^6.3",
     "mongoose": "^8.1.1",
     "path": "^0.12.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "vercel": "^33.5.0"
   }
 }
